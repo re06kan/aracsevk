@@ -1,0 +1,207 @@
+<div class="kayit-container">
+  <div class="kayit-card">
+    <img src="assets/logo.png" alt="Araç Sevk Logo" class="logo">
+    <h2>Kayıt Ol</h2>
+    
+    <form [formGroup]="kayitForm" (ngSubmit)="onSubmit()" class="kayit-form">
+      <div class="form-group">
+        <label for="username">Kullanıcı Adı</label>
+        <input 
+          type="text" 
+          id="username" 
+          formControlName="username" 
+          placeholder="Kullanıcı adınızı girin"
+          [ngClass]="{'is-invalid': username?.invalid && (username?.dirty || username?.touched)}"
+        >
+        <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="invalid-feedback">
+          <small *ngIf="username?.errors?.['required']">Kullanıcı adı zorunludur</small>
+          <small *ngIf="username?.errors?.['minlength']">En az 3 karakter olmalıdır</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ad">Ad</label>
+        <input 
+          type="text" 
+          id="ad" 
+          formControlName="ad" 
+          placeholder="Adınızı girin"
+          [ngClass]="{'is-invalid': ad?.invalid && (ad?.dirty || ad?.touched)}"
+        >
+        <div *ngIf="ad?.invalid && (ad?.dirty || ad?.touched)" class="invalid-feedback">
+          <small *ngIf="ad?.errors?.['required']">Ad zorunludur</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="soyad">Soyad</label>
+        <input 
+          type="text" 
+          id="soyad" 
+          formControlName="soyad" 
+          placeholder="Soyadınızı girin"
+          [ngClass]="{'is-invalid': soyad?.invalid && (soyad?.dirty || soyad?.touched)}"
+        >
+        <div *ngIf="soyad?.invalid && (soyad?.dirty || soyad?.touched)" class="invalid-feedback">
+          <small *ngIf="soyad?.errors?.['required']">Soyad zorunludur</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Şifre</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password" 
+          placeholder="Şifrenizi girin"
+          [ngClass]="{'is-invalid': password?.invalid && (password?.dirty || password?.touched)}"
+        >
+        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid-feedback">
+          <small *ngIf="password?.errors?.['required']">Şifre zorunludur</small>
+          <small *ngIf="password?.errors?.['minlength']">Şifre en az 6 karakter olmalıdır</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Kullanıcı Rolü</label>
+        <select 
+          id="role" 
+          formControlName="role"
+          [ngClass]="{'is-invalid': role?.invalid && (role?.dirty || role?.touched)}"
+        >
+          <option value="user">Kullanıcı</option>
+          <option value="admin">Yönetici</option>
+          <option value="driver">Sürücü</option>
+        </select>
+        <div *ngIf="role?.invalid && (role?.dirty || role?.touched)" class="invalid-feedback">
+          <small *ngIf="role?.errors?.['required']">Rol seçimi zorunludur</small>
+        </div>
+      </div>
+
+      <div *ngIf="kayitError" class="alert alert-danger">
+        {{ kayitError }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="kayitForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'Kayıt Yapılıyor...' : 'Kayıt Ol' }}
+      </button>
+    </form>
+
+    <div class="kayit-footer">
+      <p class="login-link">Zaten hesabınız var mı? <a routerLink="/giris">Giriş Yap</a></p>
+    </div>
+  </div>
+</div>
+
+<style>
+:root {
+  --primary-color: #1a5f7a;
+  --secondary-color: #159895;
+  --background-color: #e8f4f8;
+  --text-color: #0f3057;
+}
+
+.kayit-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+.kayit-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(15,48,87,0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.kayit-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group input.is-invalid,
+.form-group select.is-invalid {
+  border-color: red;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--secondary-color);
+}
+
+.kayit-footer {
+  margin-top: 20px;
+}
+
+.login-link {
+  color: var(--text-color);
+}
+
+.login-link a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+</style>

@@ -5,27 +5,41 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
-      type: Sequelize.STRING,
+    plaka: {
+      type: Sequelize.STRING(20),
+      allowNull: false,
+      unique: true
+    },
+    marka: {
+      type: Sequelize.STRING(50),
       allowNull: false
     },
-    currentMileage: {
-      type: Sequelize.FLOAT,
+    model: {
+      type: Sequelize.STRING(50),
       allowNull: false
     },
-    status: {
-      type: Sequelize.ENUM('AVAILABLE', 'IN_TASK', 'TASK_COMPLETED'),
-      defaultValue: 'AVAILABLE'
+    modelYili: {
+      type: Sequelize.INTEGER
     },
-    route: {
-      type: Sequelize.STRING
+    kilometresi: {
+      type: Sequelize.DECIMAL(10, 2),
+      defaultValue: 0,
+      allowNull: false
     },
-    lastTaskStartMileage: {
-      type: Sequelize.FLOAT
+    sonGorevKilometresi: {
+      type: Sequelize.DECIMAL(10, 2)
     },
-    lastTaskEndMileage: {
-      type: Sequelize.FLOAT
+    durum: {
+      type: Sequelize.ENUM('MUSAIT', 'GOREVDE', 'UZUN_YOLDA', 'KADEMEDE'),
+      defaultValue: 'MUSAIT'
+    },
+    aktif: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true
     }
+  }, {
+    tableName: 'vehicles',
+    timestamps: true
   });
 
   return Vehicle;

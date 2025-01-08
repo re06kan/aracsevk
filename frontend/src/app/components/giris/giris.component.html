@@ -1,0 +1,166 @@
+<div class="giris-container">
+  <div class="giris-card">
+    <img src="assets/logo.png" alt="Araç Sevk Logo" class="logo">
+    <h2>Giriş Yap</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="giris-form">
+      <div class="form-group">
+        <label for="tcKimlikNo">TC Kimlik No</label>
+        <input 
+          type="text" 
+          id="tcKimlikNo" 
+          formControlName="tcKimlikNo" 
+          placeholder="TC Kimlik Numaranızı girin"
+          [ngClass]="{'is-invalid': tcKimlikNo?.invalid && (tcKimlikNo?.dirty || tcKimlikNo?.touched)}"
+        >
+        <div *ngIf="tcKimlikNo?.invalid && (tcKimlikNo?.dirty || tcKimlikNo?.touched)" class="invalid-feedback">
+          <small *ngIf="tcKimlikNo?.errors?.['required']">TC Kimlik No zorunludur</small>
+          <small *ngIf="tcKimlikNo?.errors?.['minlength'] || tcKimlikNo?.errors?.['maxlength']">11 haneli TC Kimlik No girmelisiniz</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sifre">Şifre</label>
+        <input 
+          type="password" 
+          id="sifre" 
+          formControlName="sifre" 
+          placeholder="Şifrenizi girin"
+          [ngClass]="{'is-invalid': sifre?.invalid && (sifre?.dirty || sifre?.touched)}"
+        >
+        <div *ngIf="sifre?.invalid && (sifre?.dirty || sifre?.touched)" class="invalid-feedback">
+          <small *ngIf="sifre?.errors?.['required']">Şifre zorunludur</small>
+          <small *ngIf="sifre?.errors?.['minlength']">Şifre en az 6 karakter olmalıdır</small>
+        </div>
+      </div>
+
+      <div *ngIf="loginError" class="alert alert-danger">
+        {{ loginError }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'Giriş Yapılıyor...' : 'Giriş Yap' }}
+      </button>
+    </form>
+
+    <div class="giris-footer">
+      <p class="kayit-link">Hesabınız yok mu? <a routerLink="/kayit">Kayıt Ol</a></p>
+      <p class="forgot-password">Şifremi Unuttum</p>
+    </div>
+  </div>
+</div>
+
+<style>
+:root {
+  --primary-color: #1a5f7a;
+  --secondary-color: #159895;
+  --background-color: #e8f4f8;
+  --text-color: #0f3057;
+}
+
+.giris-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+.giris-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(15,48,87,0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.giris-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group input.is-invalid {
+  border-color: red;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--secondary-color);
+}
+
+.giris-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kayit-link, .forgot-password {
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.kayit-link a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+</style>

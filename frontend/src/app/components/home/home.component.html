@@ -1,0 +1,155 @@
+<div class="home-container">
+  <div class="home-wrapper">
+    <div class="user-section">
+      <div class="user-header">
+        <div class="user-avatar">
+          <span>{{ getUserInitials() }}</span>
+        </div>
+        <div class="user-info">
+          <h2>{{ currentUser?.ad }} {{ currentUser?.soyad }}</h2>
+          <p>{{ getUserRoleLabel() }}</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card" (click)="navigateToDashboard()">
+            <div class="feature-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h3>Kontrol Paneli</h3>
+            <p>Sistem yönetimi ve genel bakış</p>
+            <div class="feature-overlay"></div>
+          </div>
+    
+          <div class="feature-card" (click)="navigateToAracTakip()">
+            <div class="feature-icon">
+              <i class="fas fa-truck-moving"></i>
+            </div>
+            <h3>Araç Takibi</h3>
+            <p>Araçların anlık konumunu ve durumunu izleyin</p>
+            <div class="feature-overlay"></div>
+          </div>
+    
+          <div class="feature-card" (click)="navigateToKullaniciYonetimi()">
+            <div class="feature-icon">
+              <i class="fas fa-users-cog"></i>
+            </div>
+            <h3>Kullanıcı Yönetimi</h3>
+            <p>Personel ve erişim haklarını yönetin</p>
+            <div class="feature-overlay"></div>
+          </div>
+    
+          <div class="feature-card" (click)="navigateToRaporlama()">
+            <div class="feature-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3>Raporlama</h3>
+            <p>Detaylı performans ve analiz raporları</p>
+            <div class="feature-overlay"></div>
+          </div>
+        </div>
+        <button class="logout-btn" (click)="logout()" title="Çıkış Yap">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+:root {
+  --primary-color: #1a5f7a;      /* Daha derin mavi */
+  --secondary-color: #159895;    /* Turkuaz mavi */
+  --accent-color: #57c5b6;       /* Açık turkuaz */
+  --background-color: #e8f4f8;   /* Çok açık mavi */
+  --text-color: #0f3057;         /* Koyu mavi-gri */
+  --text-light: #ffffff;         /* Beyaz */
+}
+
+.home-container {
+  font-family: 'Arial', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+.home-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.user-section {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(15,48,87,0.1);
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-avatar {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  color: var(--text-light);
+  font-size: 1.5em;
+  line-height: 50px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.user-info {
+  flex-grow: 1;
+}
+
+.logout-btn {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(15,48,87,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.feature-icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.feature-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-overlay {
+  opacity: 1;
+}
+</style>
